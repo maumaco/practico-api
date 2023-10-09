@@ -17,7 +17,14 @@ import {
 } from './constants/textNodes.js';
 
 
+import weatherData from './data/weather.json';
+
+
 export default function App() {
+  // <Temperature />
+  const currentTemperature = weatherData.current_weather.temperature;
+  const currentTemperatureUnit = weatherData.current_weather_units.temperature;
+
   return (
     <>
       <header>
@@ -26,8 +33,14 @@ export default function App() {
 
       <main>
         <section>
-          <WeatherDashboard title={WEATHER_DASHBOARD_HEADING}>
-            <Temperature title={TEMPERATURE_HEADING} />
+          <WeatherDashboard
+            title={WEATHER_DASHBOARD_HEADING}
+          >
+            <Temperature
+              temperature={currentTemperature}
+              title={TEMPERATURE_HEADING}
+              unit={currentTemperatureUnit}
+            />
             <Time title={TIME_HEADING} />
             <TemperatureRange title={TEMPERATURE_RANGE_HEADING} />
             <Today title={TODAY_HEADING}/>
