@@ -28,7 +28,7 @@
         "time": "iso8601",
         "temperature_2m": "°C",
         "relativehumidity_2m": "%",
-        "visibility": "m"
+        "visibility": "m",
         "european_aqi": "EAQI"
     },
     "hourly": {
@@ -135,7 +135,7 @@
             24140.00,
             24140.00,
             24140.00
-        ]
+        ],
         "european_aqi": [
             15,
             16,
