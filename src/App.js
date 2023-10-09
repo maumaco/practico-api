@@ -37,6 +37,12 @@ export default function App() {
   const currentDate = capitalizeFirstLetter(WEEK_DAYS[currentFullTime.getDay()]);
   const currentTime = formatTime(currentFullTime.getHours(), currentFullTime.getMinutes());
 
+  // <TemperatureRange />
+  const maxTemperature = weatherData.daily.temperature_2m_max;
+  const maxTemperatureUnit = weatherData.daily_units.temperature_2m_max;
+  const minTemperature = weatherData.daily.temperature_2m_min;
+  const minTemperatureUnit = weatherData.daily_units.temperature_2m_min;
+
   return (
     <>
       <header>
@@ -59,7 +65,14 @@ export default function App() {
               time={currentTime}
               title={TIME_HEADING}
             />
-            <TemperatureRange title={TEMPERATURE_RANGE_HEADING} />
+
+            <TemperatureRange
+              max={maxTemperature}
+              maxUnit={maxTemperatureUnit}
+              min={minTemperature}
+              minUnit={minTemperatureUnit}
+              title={TEMPERATURE_RANGE_HEADING}
+            />
             <Today title={TODAY_HEADING}/>
             <Highlights title={HIGHLIGHTS_HEADING} />
           </WeatherDashboard>

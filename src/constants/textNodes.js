@@ -1,5 +1,7 @@
 export const APP_HEADING = 'Aplicación web de clima y transporte';
 export const HIGHLIGHTS_HEADING = 'Destacados';
+export const MAX_TEMPERATURE_HEADING = 'Máxima';
+export const MIN_TEMPERATURE_HEADING = 'Mínima';
 export const TEMPERATURE_HEADING = 'Temperatura actual';
 export const TEMPERATURE_RANGE_HEADING = 'Rango de la temperatura';
 export const TIME_HEADING = 'Fecha y hora';
