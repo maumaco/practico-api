@@ -13,8 +13,15 @@ import {
   TEMPERATURE_RANGE_HEADING,
   TIME_HEADING,
   TODAY_HEADING,
-  WEATHER_DASHBOARD_HEADING
+  WEATHER_DASHBOARD_HEADING,
+  WEEK_DAYS
 } from './constants/textNodes.js';
+
+
+import {
+  capitalizeFirstLetter,
+  formatTime
+} from './utilities/functions.js';
 
 
 import weatherData from './data/weather.json';
@@ -24,6 +31,17 @@ export default function App() {
   // <Temperature />
   const currentTemperature = weatherData.current_weather.temperature;
   const currentTemperatureUnit = weatherData.current_weather_units.temperature;
+
+  // <Time />
+  function capitalizeFirstLetter(text) {
+    return text[0].toUpperCase() + text.slice(1);
+  }
+  function formatTime(hours, minutes) {
+    return hours + ':' + (minutes < 10 && '0') + minutes;
+  }
+  const currentFullTime = new Date(weatherData.current_weather.time);
+  const currentDate = capitalizeFirstLetter(WEEK_DAYS[currentFullTime.getDay()]);
+  const currentTime = formatTime(currentFullTime.getHours(), currentFullTime.getMinutes());
 
   return (
     <>
@@ -41,7 +59,12 @@ export default function App() {
               title={TEMPERATURE_HEADING}
               unit={currentTemperatureUnit}
             />
-            <Time title={TIME_HEADING} />
+
+            <Time
+              date={currentDate}
+              time={currentTime}
+              title={TIME_HEADING}
+            />
             <TemperatureRange title={TEMPERATURE_RANGE_HEADING} />
             <Today title={TODAY_HEADING}/>
             <Highlights title={HIGHLIGHTS_HEADING} />
