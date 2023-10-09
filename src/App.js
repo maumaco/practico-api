@@ -33,12 +33,6 @@ export default function App() {
   const currentTemperatureUnit = weatherData.current_weather_units.temperature;
 
   // <Time />
-  function capitalizeFirstLetter(text) {
-    return text[0].toUpperCase() + text.slice(1);
-  }
-  function formatTime(hours, minutes) {
-    return hours + ':' + (minutes < 10 && '0') + minutes;
-  }
   const currentFullTime = new Date(weatherData.current_weather.time);
   const currentDate = capitalizeFirstLetter(WEEK_DAYS[currentFullTime.getDay()]);
   const currentTime = formatTime(currentFullTime.getHours(), currentFullTime.getMinutes());
