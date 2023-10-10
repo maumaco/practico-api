@@ -1,5 +1,6 @@
 // Components
 
+import Dial from './components/Dial.js'
 import HighlightedItem from './components/HighlightedItem.js'
 import HighlightedText from './components/HighlightedText.js'
 import HighlightedValue from './components/HighlightedValue.js'
@@ -76,6 +77,7 @@ export default function App() {
   // <Highlights />
   const UVIndex = weatherData.daily.uv_index_max;
   const UVIndexText = getUVIndexRisk(UVIndex);
+  const UVIndexRange = 11;
   const windSpeed = weatherData.current.windspeed_10m;
   const windSpeedUnit = weatherData.current_units.windspeed_10m;
   const sunrise = getHourAndMinutes(new Date(weatherData.daily.sunrise));
@@ -86,6 +88,7 @@ export default function App() {
   const visibilityUnit = weatherData.hourly_units.visibility;
   const airQualityIndex = weatherData.current.european_aqi;
   const airQualityIndexText = getEuropeanAQIPollutionLevel(airQualityIndex);
+  const airQualityIndexRange = 301;
 
   return (
     <>
@@ -136,6 +139,10 @@ export default function App() {
                 />
                 <HighlightedText
                   text={UVIndexText}
+                />
+                <Dial
+                  range={UVIndexRange}
+                  value={UVIndex}
                 />
               </HighlightedItem>
 
@@ -190,6 +197,10 @@ export default function App() {
                 />
                 <HighlightedText
                   text={airQualityIndexText}
+                />
+                <Dial
+                  range={airQualityIndexRange}
+                  value={airQualityIndex}
                 />
               </HighlightedItem>
             </Highlights>
