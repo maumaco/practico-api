@@ -23,6 +23,23 @@ export const WEATHER_DASHBOARD_HEADING = 'El clima';
 export const WIND_SPEED_HEADING = 'Viento';
 
 
+export const EUROPEAN_AQI_POLLUTION_LEVEL_SCALE = [
+  'bueno',
+  'moderado',
+  'insalubre para grupos sensibles',
+  'insalubre',
+  'muy insalubre',
+  'peligroso'
+];
+
+export const UV_INDEX_RISK_SCALE = [
+  'bajo',
+  'moderado',
+  'alto',
+  'muy alto',
+  'extremadamente alto'
+];
+
 export const WEEK_DAYS = [
   'domingo',
   'lunes',

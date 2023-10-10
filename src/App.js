@@ -1,6 +1,7 @@
 // Components
 
 import HighlightedItem from './components/HighlightedItem.js'
+import HighlightedText from './components/HighlightedText.js'
 import HighlightedValue from './components/HighlightedValue.js'
 import Highlights from './components/Highlights.js'
 import Temperature from './components/Temperature.js'
@@ -35,7 +36,9 @@ import {
   capitalizeFirstLetter,
   formatTime,
   getDayName,
+  getEuropeanAQIPollutionLevel,
   getHourAndMinutes,
+  getUVIndexRisk,
   reduceArrayByDivider
 } from './utilities/functions.js';
 
@@ -71,7 +74,8 @@ export default function App() {
   );
 
   // <Highlights />
-  const uvIndex = weatherData.daily.uv_index_max;
+  const UVIndex = weatherData.daily.uv_index_max;
+  const UVIndexText = getUVIndexRisk(UVIndex);
   const windSpeed = weatherData.current.windspeed_10m;
   const windSpeedUnit = weatherData.current_units.windspeed_10m;
   const sunrise = getHourAndMinutes(new Date(weatherData.daily.sunrise));
@@ -81,6 +85,7 @@ export default function App() {
   const visibility = weatherData.hourly.visibility[weatherData.hourly.time.indexOf(weatherData.current.time)];
   const visibilityUnit = weatherData.hourly_units.visibility;
   const airQualityIndex = weatherData.current.european_aqi;
+  const airQualityIndexText = getEuropeanAQIPollutionLevel(airQualityIndex);
 
   return (
     <>
@@ -127,7 +132,10 @@ export default function App() {
                 title={UV_INDEX_HEADING}
               >
                 <HighlightedValue
-                  value={uvIndex}
+                  value={UVIndex}
+                />
+                <HighlightedText
+                  text={UVIndexText}
                 />
               </HighlightedItem>
 
@@ -179,6 +187,9 @@ export default function App() {
               >
                 <HighlightedValue
                   value={airQualityIndex}
+                />
+                <HighlightedText
+                  text={airQualityIndexText}
                 />
               </HighlightedItem>
             </Highlights>

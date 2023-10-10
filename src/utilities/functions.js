@@ -1,4 +1,8 @@
-import { WEEK_DAYS } from '../constants/textNodes.js';
+import {
+  EUROPEAN_AQI_POLLUTION_LEVEL_SCALE,
+  UV_INDEX_RISK_SCALE,
+  WEEK_DAYS
+} from '../constants/textNodes.js';
 
 
 export function capitalizeFirstLetter(text) {
@@ -20,6 +24,55 @@ export function getDayName(index) {
 export function getHourAndMinutes(date) {
   // h:mm
   return formatTime(date.getHours(), date.getMinutes());
+}
+
+
+export function getEuropeanAQIPollutionLevel(europeanAQI) {
+  let index;
+
+  if (europeanAQI < 51) {
+    index = 0;
+  }
+  else if (europeanAQI < 101) {
+    index = 1;
+  }
+  else if (europeanAQI < 151) {
+    index = 2;
+  }
+  else if (europeanAQI < 201) {
+    index = 3;
+  }
+  else if (europeanAQI < 301) {
+    index = 4;
+  }
+  else {
+    index = 5;
+  }
+
+  return capitalizeFirstLetter(EUROPEAN_AQI_POLLUTION_LEVEL_SCALE[index]);
+}
+
+
+export function getUVIndexRisk(UVIndex) {
+  let index;
+
+  if (UVIndex < 3) {
+    index = 0;
+  }
+  else if (UVIndex < 6) {
+    index = 1;
+  }
+  else if (UVIndex < 8) {
+    index = 2;
+  }
+  else if (UVIndex < 11) {
+    index = 3;
+  }
+  else {
+    index = 4;
+  }
+
+  return capitalizeFirstLetter(UV_INDEX_RISK_SCALE[index]);
 }
 
 
