@@ -1,5 +1,5 @@
 export default function HighlightedText({ text }) {
   return (
-    <p>{text}</p>
+    <p className="highlighted-text">{text}</p>
   );
 }

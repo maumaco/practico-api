@@ -1,5 +1,9 @@
 export default function HighlightedValue({ value, unit }) {
   return (
-    <p>{value}{unit && ' ' + unit}</p>
+    <p>
+      <span className="value">{value}</span>
+      {unit && ' '}
+      {unit && <span className="unit">{unit}</span>}
+    </p>
   );
 }

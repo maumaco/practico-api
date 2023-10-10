@@ -97,7 +97,7 @@ export default function App() {
       </header>
 
       <main>
-        <section>
+        <section id="weather-dashboard">
           <WeatherDashboard
             title={WEATHER_DASHBOARD_HEADING}
           >

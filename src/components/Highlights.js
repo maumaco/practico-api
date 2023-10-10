@@ -1,6 +1,6 @@
 export default function Highlights({ title, children }) {
   return (
-    <article>
+    <article id="highlights">
       <h3>{title}</h3>
       {children}
     </article>
