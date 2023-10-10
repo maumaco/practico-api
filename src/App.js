@@ -1,3 +1,5 @@
+// Components
+
 import Highlights from './components/Highlights.js'
 import Temperature from './components/Temperature.js'
 import TemperatureRange from './components/TemperatureRange.js'
@@ -6,6 +8,8 @@ import Today from './components/Today.js'
 import WeatherDashboard from './components/WeatherDashboard.js'
 
 
+// Constants
+
 import {
   APP_HEADING,
   HIGHLIGHTS_HEADING,
@@ -13,16 +17,22 @@ import {
   TEMPERATURE_RANGE_HEADING,
   TIME_HEADING,
   TODAY_HEADING,
-  WEATHER_DASHBOARD_HEADING,
-  WEEK_DAYS
+  WEATHER_DASHBOARD_HEADING
 } from './constants/textNodes.js';
 
 
+// Functions
+
 import {
   capitalizeFirstLetter,
-  formatTime
+  formatTime,
+  getDayName,
+  getHourAndMinutes,
+  reduceArrayByDivider
 } from './utilities/functions.js';
 
+
+// Data
 
 import weatherData from './data/weather.json';
 
@@ -34,7 +44,9 @@ export default function App() {
 
   // <Time />
   const currentFullTime = new Date(weatherData.current_weather.time);
-  const currentDate = capitalizeFirstLetter(WEEK_DAYS[currentFullTime.getDay()]);
+  const currentDate = capitalizeFirstLetter(
+    getDayName(currentFullTime.getDay())
+  );
   const currentTime = formatTime(currentFullTime.getHours(), currentFullTime.getMinutes());
 
   // <TemperatureRange />
@@ -42,6 +54,13 @@ export default function App() {
   const maxTemperatureUnit = weatherData.daily_units.temperature_2m_max;
   const minTemperature = weatherData.daily.temperature_2m_min;
   const minTemperatureUnit = weatherData.daily_units.temperature_2m_min;
+
+  // <Today />
+  const divider = 3;
+  const crossAxisValues = reduceArrayByDivider(weatherData.hourly.temperature_2m, divider);
+  const mainAxisValues = reduceArrayByDivider(weatherData.hourly.time, divider).map(e =>
+    getHourAndMinutes(new Date(e))
+  );
 
   return (
     <>
@@ -73,7 +92,12 @@ export default function App() {
               minUnit={minTemperatureUnit}
               title={TEMPERATURE_RANGE_HEADING}
             />
-            <Today title={TODAY_HEADING}/>
+
+            <Today
+              crossAxisValues={crossAxisValues}
+              mainAxisValues={mainAxisValues}
+              title={TODAY_HEADING}
+            />
             <Highlights title={HIGHLIGHTS_HEADING} />
           </WeatherDashboard>
         </section>
