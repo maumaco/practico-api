@@ -1,5 +1,6 @@
 // Components
 
+import HighlightedItem from './components/HighlightedItem.js'
 import Highlights from './components/Highlights.js'
 import Temperature from './components/Temperature.js'
 import TemperatureRange from './components/TemperatureRange.js'
@@ -11,13 +12,19 @@ import WeatherDashboard from './components/WeatherDashboard.js'
 // Constants
 
 import {
+  AIR_QUALITY_INDEX_HEADING,
   APP_HEADING,
   HIGHLIGHTS_HEADING,
+  RELATIVE_HUMIDITY_HEADING,
+  SUNRISE_SUNSET_HEADING,
   TEMPERATURE_HEADING,
   TEMPERATURE_RANGE_HEADING,
   TIME_HEADING,
   TODAY_HEADING,
-  WEATHER_DASHBOARD_HEADING
+  UV_INDEX_HEADING,
+  VISIBILITY_HEADING,
+  WEATHER_DASHBOARD_HEADING,
+  WIND_SPEED_HEADING
 } from './constants/textNodes.js';
 
 
@@ -98,7 +105,46 @@ export default function App() {
               mainAxisValues={mainAxisValues}
               title={TODAY_HEADING}
             />
-            <Highlights title={HIGHLIGHTS_HEADING} />
+
+            <Highlights
+              title={HIGHLIGHTS_HEADING}
+            >
+              {/* UV index */}
+              <HighlightedItem
+                title={UV_INDEX_HEADING}
+              >
+              </HighlightedItem>
+
+              {/* Wind speed */}
+              <HighlightedItem
+                title={WIND_SPEED_HEADING}
+              >
+              </HighlightedItem>
+
+              {/* Sunrise & sunset */}
+              <HighlightedItem
+                title={SUNRISE_SUNSET_HEADING}
+              >
+              </HighlightedItem>
+
+              {/* Relative humidity */}
+              <HighlightedItem
+              title={RELATIVE_HUMIDITY_HEADING}
+              >
+              </HighlightedItem>
+
+              {/* Visibility */}
+              <HighlightedItem
+                title={VISIBILITY_HEADING}
+              >
+              </HighlightedItem>
+
+              {/* Air quality index */}
+              <HighlightedItem
+                title={AIR_QUALITY_INDEX_HEADING}
+              >
+              </HighlightedItem>
+            </Highlights>
           </WeatherDashboard>
         </section>
       </main>

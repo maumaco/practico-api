@@ -1,12 +1,34 @@
+export const AIR_QUALITY_INDEX_HEADING = 'Calidad del aire';
 export const APP_HEADING = 'Aplicación web de clima y transporte';
+
 export const HIGHLIGHTS_HEADING = 'Destacados';
+
 export const MAX_TEMPERATURE_HEADING = 'Máxima';
 export const MIN_TEMPERATURE_HEADING = 'Mínima';
+
+export const RELATIVE_HUMIDITY_HEADING = 'Humedad relativa';
+
+export const SUNRISE_SUNSET_HEADING = 'Amanecer y atardecer';
+
 export const TEMPERATURE_HEADING = 'Temperatura actual';
 export const TEMPERATURE_RANGE_HEADING = 'Rango de la temperatura';
 export const TIME_HEADING = 'Fecha y hora';
 export const TODAY_HEADING = 'La temperatura hoy';
+
+export const UV_INDEX_HEADING = 'Radiación ultravioleta';
+
+export const VISIBILITY_HEADING = 'Visibilidad';
+
 export const WEATHER_DASHBOARD_HEADING = 'El clima';
+export const WIND_SPEED_HEADING = 'Viento';
 
 
-export const WEEK_DAYS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+export const WEEK_DAYS = [
+  'domingo',
+  'lunes',
+  'martes',
+  'miércoles',
+  'jueves',
+  'viernes',
+  'sábado'
+];
