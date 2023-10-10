@@ -46,11 +46,11 @@ import weatherData from './data/weather.json';
 
 export default function App() {
   // <Temperature />
-  const currentTemperature = weatherData.current_weather.temperature;
-  const currentTemperatureUnit = weatherData.current_weather_units.temperature;
+  const currentTemperature = weatherData.current.temperature_2m;
+  const currentTemperatureUnit = weatherData.current_units.temperature_2m;
 
   // <Time />
-  const currentFullTime = new Date(weatherData.current_weather.time);
+  const currentFullTime = new Date(weatherData.current.time);
   const currentDate = capitalizeFirstLetter(
     getDayName(currentFullTime.getDay())
   );
