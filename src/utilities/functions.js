@@ -8,7 +8,7 @@ export function capitalizeFirstLetter(text) {
 
 export function formatTime(hours, minutes) {
   // h:mm
-  return hours + ':' + (minutes < 10 && '0') + minutes;
+  return hours + ':' + (minutes < 10 ? '0' : '') + minutes;
 }
 
 

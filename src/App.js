@@ -1,6 +1,7 @@
 // Components
 
 import HighlightedItem from './components/HighlightedItem.js'
+import HighlightedValue from './components/HighlightedValue.js'
 import Highlights from './components/Highlights.js'
 import Temperature from './components/Temperature.js'
 import TemperatureRange from './components/TemperatureRange.js'
@@ -69,6 +70,18 @@ export default function App() {
     getHourAndMinutes(new Date(e))
   );
 
+  // <Highlights />
+  const uvIndex = weatherData.daily.uv_index_max;
+  const windSpeed = weatherData.current.windspeed_10m;
+  const windSpeedUnit = weatherData.current_units.windspeed_10m;
+  const sunrise = getHourAndMinutes(new Date(weatherData.daily.sunrise));
+  const sunset = getHourAndMinutes(new Date(weatherData.daily.sunset));
+  const relativeHumidity = weatherData.current.relativehumidity_2m;
+  const relativeHumidityUnit = weatherData.current_units.relativehumidity_2m;
+  const visibility = weatherData.hourly.visibility[weatherData.hourly.time.indexOf(weatherData.current.time)];
+  const visibilityUnit = weatherData.hourly_units.visibility;
+  const airQualityIndex = weatherData.current.european_aqi;
+
   return (
     <>
       <header>
@@ -113,36 +126,60 @@ export default function App() {
               <HighlightedItem
                 title={UV_INDEX_HEADING}
               >
+                <HighlightedValue
+                  value={uvIndex}
+                />
               </HighlightedItem>
 
               {/* Wind speed */}
               <HighlightedItem
                 title={WIND_SPEED_HEADING}
               >
+                <HighlightedValue
+                  unit={windSpeedUnit}
+                  value={windSpeed}
+                />
               </HighlightedItem>
 
               {/* Sunrise & sunset */}
               <HighlightedItem
                 title={SUNRISE_SUNSET_HEADING}
               >
+                <HighlightedValue
+                  value={sunrise}
+                />
+                <HighlightedValue
+                  value={sunset}
+                />
               </HighlightedItem>
 
               {/* Relative humidity */}
               <HighlightedItem
               title={RELATIVE_HUMIDITY_HEADING}
               >
+                <HighlightedValue
+                  unit={relativeHumidityUnit}
+                  value={relativeHumidity}
+                />
               </HighlightedItem>
 
               {/* Visibility */}
               <HighlightedItem
                 title={VISIBILITY_HEADING}
               >
+                <HighlightedValue
+                  unit={visibilityUnit}
+                  value={visibility}
+                />
               </HighlightedItem>
 
               {/* Air quality index */}
               <HighlightedItem
                 title={AIR_QUALITY_INDEX_HEADING}
               >
+                <HighlightedValue
+                  value={airQualityIndex}
+                />
               </HighlightedItem>
             </Highlights>
           </WeatherDashboard>
