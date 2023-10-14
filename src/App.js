@@ -1,3 +1,8 @@
+// React
+
+import { useState, useEffect } from 'react';
+
+
 // Components
 
 import Dial from './components/Dial.js'
@@ -17,7 +22,9 @@ import WeatherDashboard from './components/WeatherDashboard.js'
 import {
   AIR_QUALITY_INDEX_HEADING,
   APP_HEADING,
+  ERROR_MESSAGE,
   HIGHLIGHTS_HEADING,
+  IS_LOADING_MESSAGE,
   RELATIVE_HUMIDITY_HEADING,
   SUNRISE_SUNSET_HEADING,
   TEMPERATURE_HEADING,
@@ -46,10 +53,45 @@ import {
 
 // Data
 
-import weatherData from './data/weather.json';
+//import weatherData from './data/weather.json';
 
 
 export default function App() {
+  const [weatherData, setWeatherData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+
+  // Fetch API data
+  useEffect(() => {
+    setIsLoading(true);
+    setError(null);
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,relativehumidity_2m,is_day,weathercode,windspeed_10m,winddirection_10m&hourly=temperature_2m,relativehumidity_2m,visibility&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,windspeed_10m_max&timezone=America%2FSao_Paulo&forecast_days=1')
+      .then(response =>
+        response.json()
+      )
+      .catch(error =>
+        setError(error)
+      )
+      .then(data => {
+        setWeatherData(data);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        setError(error);
+      })
+  }, []);
+
+
+  // Render data only if fetch has been successful
+  if (error) {
+    return (<p className="message error"><samp>{ERROR_MESSAGE}</samp></p>);
+  }
+  else if (isLoading) {
+    return (<p className="message is-loading"><samp>{IS_LOADING_MESSAGE}</samp></p>);
+  }
+
+
   // <Temperature />
   const currentTemperature = weatherData.current.temperature_2m;
   const currentTemperatureUnit = weatherData.current_units.temperature_2m;
@@ -84,11 +126,20 @@ export default function App() {
   const sunset = getHourAndMinutes(new Date(weatherData.daily.sunset));
   const relativeHumidity = weatherData.current.relativehumidity_2m;
   const relativeHumidityUnit = weatherData.current_units.relativehumidity_2m;
-  const visibility = weatherData.hourly.visibility[weatherData.hourly.time.indexOf(weatherData.current.time)];
+  // TO DO:
+  // Create a function to get an element array value from a current time value
+  // Old line:
+  // const visibility = weatherData.hourly.visibility[weatherData.hourly.time.indexOf(weatherData.current.time)];
+  const visibility = weatherData.hourly.visibility[weatherData.hourly.time.indexOf(weatherData.current.time.slice(0, weatherData.current.time.length - 3) + ':00')];
   const visibilityUnit = weatherData.hourly_units.visibility;
   const airQualityIndex = weatherData.current.european_aqi;
-  const airQualityIndexText = getEuropeanAQIPollutionLevel(airQualityIndex);
+  // TO DO:
+  // Add another fetch to the API to get the air quality index
+  // Old line:
+  // const airQualityIndexText = getEuropeanAQIPollutionLevel(airQualityIndex);
+  const airQualityIndexText = 'Bueno';
   const airQualityIndexRange = 301;
+
 
   return (
     <>

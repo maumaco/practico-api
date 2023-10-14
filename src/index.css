@@ -46,6 +46,27 @@ section {
 }
 
 
+/* Messages */
+
+.message {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  margin: 0;
+}
+
+.message samp {
+  font-family: sans-serif;
+}
+
+.is-loading samp {
+  background-color: #444;
+  color: #fff;
+  padding: 0.5em 1em;
+}
+
+
 /* Weather dashboard grid */
 
 #weather-dashboard {

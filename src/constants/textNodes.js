@@ -1,7 +1,11 @@
 export const AIR_QUALITY_INDEX_HEADING = 'Calidad del aire';
 export const APP_HEADING = 'Aplicación web de clima y transporte';
 
+export const ERROR_MESSAGE = 'Ha ocurrido un error. Recargá la página para mostrar la información.';
+
 export const HIGHLIGHTS_HEADING = 'Destacados';
+
+export const IS_LOADING_MESSAGE = 'Cargando...';
 
 export const MAX_TEMPERATURE_HEADING = 'Máxima';
 export const MIN_TEMPERATURE_HEADING = 'Mínima';

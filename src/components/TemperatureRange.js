@@ -10,10 +10,10 @@ export default function TemperatureRange({ title, max, maxUnit, min, minUnit }) 
       <h3>{title}</h3>
 
       <h4>{MAX_TEMPERATURE_HEADING}</h4>
-      <p><span class="value">{max}</span> {maxUnit}</p>
+      <p><span className="value">{max}</span> {maxUnit}</p>
 
       <h4>{MIN_TEMPERATURE_HEADING}</h4>
-      <p><span class="value">{min}</span> {minUnit}</p>
+      <p><span className="value">{min}</span> {minUnit}</p>
     </article>
   );
 }
