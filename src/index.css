@@ -50,10 +50,15 @@ section {
 
 .message {
   align-items: center;
+  box-sizing: border-box;
   display: flex;
-  justify-content: center;
   height: 100%;
+  justify-content: center;
   margin: 0;
+  grid-column: 1 / 3;
+  grid-row: 1 / 5;
+  overflow: auto;
+  padding: 0.5em;
 }
 
 .message samp {
