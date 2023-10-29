@@ -5,15 +5,15 @@ import { useState, useEffect } from 'react';
 
 // Components
 
-import Dial from './Dial.js'
-import HighlightedItem from './HighlightedItem.js'
-import HighlightedText from './HighlightedText.js'
-import HighlightedValue from './HighlightedValue.js'
-import Highlights from './Highlights.js'
-import Temperature from './Temperature.js'
-import TemperatureRange from './TemperatureRange.js'
-import Time from './Time.js'
-import Today from './Today.js'
+import Dial from './Dial.js';
+import HighlightedItem from './HighlightedItem.js';
+import HighlightedText from './HighlightedText.js';
+import HighlightedValue from './HighlightedValue.js';
+import Highlights from './Highlights.js';
+import Temperature from './Temperature.js';
+import TemperatureRange from './TemperatureRange.js';
+import Time from './Time.js';
+import Today from './Today.js';
 
 
 // Constants

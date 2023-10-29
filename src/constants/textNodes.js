@@ -1,6 +1,8 @@
 export const AIR_QUALITY_INDEX_HEADING = 'Calidad del aire';
 export const APP_HEADING = 'Aplicación web de clima y transporte';
 
+export const BUS_MAP_HEADING = 'Mapa de colectivos';
+
 export const ERROR_MESSAGE = 'Ha ocurrido un error. Recargá la página para mostrar la información.';
 
 export const HIGHLIGHTS_HEADING = 'Destacados';
@@ -18,6 +20,7 @@ export const TEMPERATURE_HEADING = 'Temperatura actual';
 export const TEMPERATURE_RANGE_HEADING = 'Rango de la temperatura';
 export const TIME_HEADING = 'Fecha y hora';
 export const TODAY_HEADING = 'La temperatura hoy';
+export const TRANSPORT_DASHBOARD_HEADING = 'El transporte';
 
 export const UV_INDEX_HEADING = 'Radiación ultravioleta';
 

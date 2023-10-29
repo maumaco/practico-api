@@ -1,5 +1,6 @@
 // Components
 
+import TransportDashboard from './components/TransportDashboard.js';
 import WeatherDashboard from './components/WeatherDashboard.js';
 
 
@@ -7,6 +8,7 @@ import WeatherDashboard from './components/WeatherDashboard.js';
 
 import {
   APP_HEADING,
+  TRANSPORT_DASHBOARD_HEADING,
   WEATHER_DASHBOARD_HEADING
 } from './constants/textNodes.js';
 
@@ -25,6 +27,12 @@ export default function App() {
               title={WEATHER_DASHBOARD_HEADING}
             />
           */}
+        </section>
+
+        <section>
+          <TransportDashboard
+            title={TRANSPORT_DASHBOARD_HEADING}
+          />
         </section>
       </main>
     </>
