@@ -1,13 +1,13 @@
 // Components
 
-import WeatherDashboard from './components/WeatherDashboard.js'
+import WeatherDashboard from './components/WeatherDashboard.js';
 
 
 // Constants
 
 import {
   APP_HEADING,
-  WEATHER_DASHBOARD_HEADING,
+  WEATHER_DASHBOARD_HEADING
 } from './constants/textNodes.js';
 
 
@@ -20,9 +20,11 @@ export default function App() {
 
       <main>
         <section id="weather-dashboard">
-          <WeatherDashboard
-            title={WEATHER_DASHBOARD_HEADING}
-          />
+          {/*
+            <WeatherDashboard
+              title={WEATHER_DASHBOARD_HEADING}
+            />
+          */}
         </section>
       </main>
     </>
