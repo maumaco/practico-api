@@ -14,6 +14,7 @@ export const MIN_TEMPERATURE_HEADING = 'Mínima';
 
 export const RELATIVE_HUMIDITY_HEADING = 'Humedad relativa';
 
+export const SELECT_BUS_LINE_OPTION = 'Seleccionar línea';
 export const SUNRISE_SUNSET_HEADING = 'Amanecer y atardecer';
 
 export const TEMPERATURE_HEADING = 'Temperatura actual';
