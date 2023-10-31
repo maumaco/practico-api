@@ -1,11 +1,11 @@
 // Components
 
-import BusMap from './BusMap.js';
+import BusPosition from './BusPosition.js';
 
 
 // Constants
 
-import { BUS_MAP_HEADING } from '../constants/textNodes.js';
+import { BUS_POSITION_HEADING } from '../constants/textNodes.js';
 
 
 export default function TransportDashboard({ title }) {
@@ -13,8 +13,8 @@ export default function TransportDashboard({ title }) {
     <>
       <h2>{title}</h2>
 
-      <BusMap
-        title={BUS_MAP_HEADING}
+      <BusPosition
+        title={BUS_POSITION_HEADING}
       />
     </>
   );

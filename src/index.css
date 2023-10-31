@@ -314,16 +314,16 @@ section {
 }
 
 
-/* Bus map */
+/* Bus position */
 
-#bus-map {
+#bus-position {
   height: calc(100% - 2em);
 }
 
 
-/* Bus map heading */
+/* Bus position heading */
 
-#bus-map h3 {
+#bus-position h3 {
   box-sizing: border-box;
   color: #44c;
   font-size: 1em;

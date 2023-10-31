@@ -21,7 +21,7 @@ export default function BusMap({ title }) {
   }
 
   return (
-    <article id="bus-map">
+    <article id="bus-position">
       <h3>{title}</h3>
 
       <p id="bus-lines">
