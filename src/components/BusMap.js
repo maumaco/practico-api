@@ -21,16 +21,16 @@ export default function BusMap({ title }) {
   }
 
   return (
-    <article>
+    <article id="bus-map">
       <h3>{title}</h3>
 
-      <p>
-        <label htmlFor="bus-lines">Línea</label>
+      <p id="bus-lines">
+        <label htmlFor="bus-line">Línea</label>
 
         {': '}
 
         <select
-          id="bus-lines"
+          id="bus-line"
           value={busLine}
           onChange={handleChange}
         >

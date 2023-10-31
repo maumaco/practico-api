@@ -300,3 +300,44 @@ section {
   text-align: right;
   width: 40%;
 }
+
+
+/* Transport dashboard */
+
+#transport-dashboard h2 {
+  box-sizing: border-box;
+  color: #c44;
+  font-size: 1em;
+  height: 2em;
+  margin: 0;
+  padding: 0.5em 0;
+}
+
+
+/* Bus map */
+
+#bus-map {
+  height: calc(100% - 2em);
+}
+
+
+/* Bus map heading */
+
+#bus-map h3 {
+  box-sizing: border-box;
+  color: #44c;
+  font-size: 1em;
+  height: 2.5em;
+  margin: 0;
+  padding: 0.75em 0;
+}
+
+
+/* Bus lines */
+
+#bus-lines {
+  box-sizing: border-box;
+  height: 2.25em;
+  margin: 0;
+  padding: 0.25em 0 1em;
+}

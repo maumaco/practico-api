@@ -29,7 +29,7 @@ export default function App() {
           */}
         </section>
 
-        <section>
+        <section id="transport-dashboard">
           <TransportDashboard
             title={TRANSPORT_DASHBOARD_HEADING}
           />
