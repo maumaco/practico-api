@@ -22,7 +22,7 @@ import {
   AIR_QUALITY_INDEX_HEADING,
   ERROR_MESSAGE,
   HIGHLIGHTS_HEADING,
-  IS_LOADING_MESSAGE,
+  LOADING_MESSAGE,
   RELATIVE_HUMIDITY_HEADING,
   SUNRISE_SUNSET_HEADING,
   TEMPERATURE_HEADING,
@@ -80,7 +80,7 @@ export default function WeatherDashboard({ title }) {
     return (<p className="message error"><samp>{ERROR_MESSAGE}</samp></p>);
   }
   else if (isLoading) {
-    return (<p className="message is-loading"><samp>{IS_LOADING_MESSAGE}</samp></p>);
+    return (<p className="message loading"><samp>{LOADING_MESSAGE}</samp></p>);
   }
 
 

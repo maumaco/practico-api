@@ -3,14 +3,16 @@ export const APP_HEADING = 'Aplicación web de clima y transporte';
 
 export const BUS_POSITION_HEADING = 'Posición de los colectivos';
 
-export const ERROR_MESSAGE = 'Ha ocurrido un error. Recargá la página para mostrar la información.';
+export const ERROR_MESSAGE = 'Ha ocurrido un error';
 
 export const HIGHLIGHTS_HEADING = 'Destacados';
 
-export const IS_LOADING_MESSAGE = 'Cargando...';
+export const LOADING_MESSAGE = 'Cargando...';
 
 export const MAX_TEMPERATURE_HEADING = 'Máxima';
 export const MIN_TEMPERATURE_HEADING = 'Mínima';
+
+export const NO_SERVICES_MESSAGE = 'No hay servicios disponibles';
 
 export const RELATIVE_HUMIDITY_HEADING = 'Humedad relativa';
 

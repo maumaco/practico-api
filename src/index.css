@@ -63,13 +63,25 @@ section {
 }
 
 .message samp {
+  color: #fff;
   font-family: sans-serif;
+  padding: 0.5em 1em;
 }
 
-.is-loading samp {
+.error samp {
+  background-color: #c44;
+}
+
+.loading samp {
   background-color: #444;
-  color: #fff;
-  padding: 0.5em 1em;
+}
+
+.no-services samp {
+  background-color: #aa4;
+}
+
+#bus-map samp {
+  z-index: 1000;
 }
 
 

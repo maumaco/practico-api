@@ -1,6 +1,6 @@
 // React
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 // React Leaflet
@@ -15,7 +15,12 @@ import {
 
 // Constants
 
-import { SELECT_BUS_LINE_OPTION } from '../constants/textNodes.js';
+import { 
+  ERROR_MESSAGE,
+  LOADING_MESSAGE,
+  NO_SERVICES_MESSAGE,
+  SELECT_BUS_LINE_OPTION
+} from '../constants/textNodes.js';
 
 
 // Data
@@ -23,96 +28,32 @@ import { SELECT_BUS_LINE_OPTION } from '../constants/textNodes.js';
 import { busLines } from '../data/busLines.js';
 
 
-const fetchedBuses = [
-  {
-    "route_id": "1663",
-    "latitude": -34.61005,
-    "longitude": -58.40522,
-    "speed": 0,
-    "timestamp": 1698497878,
-    "id": "14717",
-    "direction": 0,
-    "agency_name": "TRANSPORTES RIO GRANDE S.A.C.I.F.",
-    "agency_id": 5,
-    "route_short_name": "8A",
-    "tip_id": "301963-1",
-    "trip_headsign": "a Nueva Pompeya x Av. Caseros"
-  },
-  {
-    "route_id": "1663",
-    "latitude": -34.65,
-    "longitude": -58.52939,
-    "speed": 0,
-    "timestamp": 1698497878,
-    "id": "14745",
-    "direction": 0,
-    "agency_name": "TRANSPORTES RIO GRANDE S.A.C.I.F.",
-    "agency_id": 5,
-    "route_short_name": "8A",
-    "tip_id": "301960-1",
-    "trip_headsign": "a Nueva Pompeya x Av. Caseros"
-  },
-  {
-    "route_id": "1663",
-    "latitude": -34.6299,
-    "longitude": -58.466526,
-    "speed": 0,
-    "timestamp": 1698497878,
-    "id": "14750",
-    "direction": 0,
-    "agency_name": "TRANSPORTES RIO GRANDE S.A.C.I.F.",
-    "agency_id": 5,
-    "route_short_name": "8A",
-    "tip_id": "301962-1",
-    "trip_headsign": "a Nueva Pompeya x Av. Caseros"
-  },
-  {
-    "route_id": "1663",
-    "latitude": -34.61246,
-    "longitude": -58.3692741,
-    "speed": 1.111111,
-    "timestamp": 1698497874,
-    "id": "14810",
-    "direction": 0,
-    "agency_name": "TRANSPORTES RIO GRANDE S.A.C.I.F.",
-    "agency_id": 5,
-    "route_short_name": "8A",
-    "tip_id": "301963-1",
-    "trip_headsign": "a Nueva Pompeya x Av. Caseros"
-  },
-  {
-    "route_id": "1663",
-    "latitude": -34.70329,
-    "longitude": -58.4991,
-    "speed": 0,
-    "timestamp": 1698497878,
-    "id": "14820",
-    "direction": 0,
-    "agency_name": "TRANSPORTES RIO GRANDE S.A.C.I.F.",
-    "agency_id": 5,
-    "route_short_name": "8A",
-    "tip_id": "301958-1",
-    "trip_headsign": "a Nueva Pompeya x Av. Caseros"
-  },
-  {
-    "route_id": "1663",
-    "latitude": -34.77444,
-    "longitude": -58.5244141,
-    "speed": 17.7777767,
-    "timestamp": 1698497874,
-    "id": "26564",
-    "direction": 0,
-    "agency_name": "TRANSPORTES RIO GRANDE S.A.C.I.F.",
-    "agency_id": 5,
-    "route_short_name": "8A",
-    "tip_id": "301957-1",
-    "trip_headsign": "a Nueva Pompeya x Av. Caseros"
-  }
-];
-
-
 export default function BusPosition({ title }) {
   const [selectedBusLine, setSelectedBusLine] = useState('default');
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [busData, setBusData] = useState(null);
+
+  // Fetch API data
+  useEffect(() => {
+    if (selectedBusLine !== 'default') {
+      setIsLoading(true);
+      setError(null);
+      fetch(`https://apitransporte.buenosaires.gob.ar/colectivos/vehiclePositionsSimple?route_id=${selectedBusLine}&client_id=cb6b18c84b3b484d98018a791577af52&client_secret=3e3DB105Fbf642Bf88d5eeB8783EE1E6`)
+        .then(response =>
+          response.json()
+        )
+        .catch(error =>
+          setError(error)
+        )
+        .then(data => {
+          if (data) {
+            setBusData(data);
+            setIsLoading(false);
+          }
+        })
+    }
+  }, [selectedBusLine]);
 
   function handleChange(e) {
     setSelectedBusLine(e.target.value);
@@ -151,28 +92,38 @@ export default function BusPosition({ title }) {
       </p>
 
       <div id="bus-map">
-        <MapContainer
-          center={[-34.61315, -58.37723]}
-          zoom={10}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
+        {selectedBusLine !== 'default' && (
+          error !== null
+            ? <p className="message error"><samp>{ERROR_MESSAGE}</samp></p>
+            : isLoading
+              ? <p className="message loading"><samp>{LOADING_MESSAGE}</samp></p>
+              : busData.length === 0
+                ? <p className="message no-services"><samp>{NO_SERVICES_MESSAGE}</samp></p>
+                :
+                  <MapContainer
+                    center={[-34.61315, -58.37723]}
+                    zoom={10}
+                  >
 
-          {fetchedBuses.map((bus, index) =>
-            <Marker
-              position={[bus.latitude, bus.longitude]}
-              key={index}
-            >
-              <Popup>
-                <h4 className="popup-heading">{bus.route_short_name}</h4>
-                <p className="popup-agency">{bus.agency_name}</p>
-                <p className="popup-speed">{bus.speed} m/s</p>
-              </Popup>
-            </Marker>
-          )}
-        </MapContainer>
+                    <TileLayer
+                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+
+                    {busData.map((bus, index) =>
+                      <Marker
+                        position={[bus.latitude, bus.longitude]}
+                        key={index}
+                      >
+                        <Popup>
+                          <h4 className="popup-heading">{bus.route_short_name}</h4>
+                          <p className="popup-agency">{bus.agency_name}</p>
+                          <p className="popup-speed">{bus.speed} m/s</p>
+                        </Popup>
+                      </Marker>
+                    )}
+                  </MapContainer>
+        )}
       </div>
     </article>
   );
