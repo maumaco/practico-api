@@ -44,6 +44,20 @@ export default function BusPosition({ title }) {
     [counter]
   );
 
+  // Redo the same fetch every 31 seconds
+  useEffect(() => {
+    if (counter) {
+      const fetchInterval = setInterval(() => {
+        setCounter(counter + 1);
+      }, 31000);
+
+      // Cleanup function
+      return () => {
+        clearInterval(fetchInterval);
+      }
+    }
+  }, [counter]);
+
   // Update the value of <select> and increment the fetch counter
   function handleChange(e) {
     setRouteId(e.target.value);
@@ -53,6 +67,7 @@ export default function BusPosition({ title }) {
   return (
     <article id="bus-position">
       <h3>{title}</h3>
+      <p className="notice"><em>Se actualiza cada 31 segundos</em></p>
 
       <p id="bus-lines">
         <label htmlFor="bus-line">Línea</label>

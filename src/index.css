@@ -344,6 +344,15 @@ section {
   padding: 0.75em 0;
 }
 
+#bus-position .notice {
+  box-sizing: border-box;
+  height: 1.75em;
+  margin: 0;
+  padding: 0.25em 0;
+}
+
+#bus-position .notice em {font-size: 0.875em;}
+
 
 /* Bus lines */
 
@@ -358,7 +367,7 @@ section {
 /* Bus map */
 
 #bus-map {
-  height: calc(100% - 4.75em);
+  height: calc(100% - 2.5em - 1.75em - 2.25em);
 }
 
 .leaflet-container {
