@@ -3,29 +3,19 @@
 import { useState, useEffect } from 'react';
 
 
-// React Leaflet
-
-import {
-  MapContainer,
-  Marker,
-  Popup,
-  TileLayer
-} from 'react-leaflet';
-
-
 // Custom hooks
 
 import useFetch from '../hooks/useFetch.js';
 
 
+// Components
+
+import BusMap from './BusMap.js';
+
+
 // Constants
 
-import {
-  ERROR_MESSAGE,
-  LOADING_MESSAGE,
-  NO_SERVICES_MESSAGE,
-  SELECT_BUS_LINE_OPTION
-} from '../constants/textNodes.js';
+import { SELECT_BUS_LINE_OPTION } from '../constants/textNodes.js';
 
 
 // Data
@@ -98,38 +88,9 @@ export default function BusLocation({ title }) {
       </p>
 
       <div id="bus-map">
-        {(fetchState) && (
-          fetchState.id === 'loading'
-            ? <p className="message loading"><samp>{LOADING_MESSAGE}</samp></p>
-            : fetchState.id === 'error'
-              ? <p className="message error"><samp>{ERROR_MESSAGE}</samp></p>
-              : fetchState.data.length === 0
-                ? <p className="message no-services"><samp>{NO_SERVICES_MESSAGE}</samp></p>
-                :
-                  <MapContainer
-                    center={[-34.61315, -58.37723]}
-                    zoom={13}
-                  >
-
-                    <TileLayer
-                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-
-                    {fetchState.data.map((bus, index) =>
-                      <Marker
-                        position={[bus.latitude, bus.longitude]}
-                        key={index}
-                      >
-                        <Popup>
-                          <h4 className="popup-heading">{bus.route_short_name}</h4>
-                          <p className="popup-agency">{bus.agency_name}</p>
-                          <p className="popup-speed">{bus.speed} m/s</p>
-                        </Popup>
-                      </Marker>
-                    )}
-                  </MapContainer>
-        )}
+        <BusMap
+          fetchState={fetchState}
+        />
       </div>
     </article>
   );
