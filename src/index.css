@@ -326,16 +326,16 @@ section {
 }
 
 
-/* Bus position */
+/* Bus location */
 
-#bus-position {
+#bus-location {
   height: calc(100% - 2em);
 }
 
 
-/* Bus position heading */
+/* Bus location heading */
 
-#bus-position h3 {
+#bus-location h3 {
   box-sizing: border-box;
   color: #44c;
   font-size: 1em;
@@ -344,14 +344,14 @@ section {
   padding: 0.75em 0;
 }
 
-#bus-position .notice {
+#bus-location .notice {
   box-sizing: border-box;
   height: 1.75em;
   margin: 0;
   padding: 0.25em 0;
 }
 
-#bus-position .notice em {font-size: 0.875em;}
+#bus-location .notice em {font-size: 0.875em;}
 
 
 /* Bus lines */

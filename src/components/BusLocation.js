@@ -33,7 +33,7 @@ import {
 import { busLines } from '../data/busLines.js';
 
 
-export default function BusPosition({ title }) {
+export default function BusLocation({ title }) {
   const [routeId, setRouteId] = useState('');
   const [counter, setCounter] = useState(0);
 
@@ -65,7 +65,7 @@ export default function BusPosition({ title }) {
   }
 
   return (
-    <article id="bus-position">
+    <article id="bus-location">
       <h3>{title}</h3>
       <p className="notice"><em>Se actualiza cada 31 segundos</em></p>
 

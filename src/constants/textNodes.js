@@ -1,7 +1,7 @@
 export const AIR_QUALITY_INDEX_HEADING = 'Calidad del aire';
 export const APP_HEADING = 'Aplicación web de clima y transporte';
 
-export const BUS_POSITION_HEADING = 'Posición de los colectivos';
+export const BUS_LOCATION_HEADING = 'Ubicación de los colectivos';
 
 export const ERROR_MESSAGE = 'Ha ocurrido un error';
 
