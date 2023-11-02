@@ -22,11 +22,9 @@ export default function App() {
 
       <main>
         <section id="weather-dashboard">
-          {/*
-            <WeatherDashboard
-              title={WEATHER_DASHBOARD_HEADING}
-            />
-          */}
+          <WeatherDashboard
+            title={WEATHER_DASHBOARD_HEADING}
+          />
         </section>
 
         <section id="transport-dashboard">
