@@ -13,9 +13,14 @@ import {
 } from 'react-leaflet';
 
 
+// Custom hooks
+
+import useFetch from '../hooks/useFetch.js';
+
+
 // Constants
 
-import { 
+import {
   ERROR_MESSAGE,
   LOADING_MESSAGE,
   NO_SERVICES_MESSAGE,
@@ -29,34 +34,20 @@ import { busLines } from '../data/busLines.js';
 
 
 export default function BusPosition({ title }) {
-  const [selectedBusLine, setSelectedBusLine] = useState('default');
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [busData, setBusData] = useState(null);
+  const [routeId, setRouteId] = useState('');
+  const [counter, setCounter] = useState(0);
 
-  // Fetch API data
-  useEffect(() => {
-    if (selectedBusLine !== 'default') {
-      setIsLoading(true);
-      setError(null);
-      fetch(`https://apitransporte.buenosaires.gob.ar/colectivos/vehiclePositionsSimple?route_id=${selectedBusLine}&client_id=cb6b18c84b3b484d98018a791577af52&client_secret=3e3DB105Fbf642Bf88d5eeB8783EE1E6`)
-        .then(response =>
-          response.json()
-        )
-        .catch(error =>
-          setError(error)
-        )
-        .then(data => {
-          if (data) {
-            setBusData(data);
-            setIsLoading(false);
-          }
-        })
-    }
-  }, [selectedBusLine]);
+  const fetchState = useFetch(
+    routeId
+      ? `https://apitransporte.buenosaires.gob.ar/colectivos/vehiclePositionsSimple?route_id=${routeId}&client_id=cb6b18c84b3b484d98018a791577af52&client_secret=3e3DB105Fbf642Bf88d5eeB8783EE1E6`
+      : null,
+    [counter]
+  );
 
+  // Update the value of <select> and increment the fetch counter
   function handleChange(e) {
-    setSelectedBusLine(e.target.value);
+    setRouteId(e.target.value);
+    setCounter(counter + 1);
   }
 
   return (
@@ -70,11 +61,11 @@ export default function BusPosition({ title }) {
 
         <select
           id="bus-line"
-          value={selectedBusLine}
+          value={routeId}
           onChange={handleChange}
         >
           <option
-            value="default"
+            value=""
             disabled
           >
             {SELECT_BUS_LINE_OPTION}
@@ -92,17 +83,17 @@ export default function BusPosition({ title }) {
       </p>
 
       <div id="bus-map">
-        {selectedBusLine !== 'default' && (
-          error !== null
-            ? <p className="message error"><samp>{ERROR_MESSAGE}</samp></p>
-            : isLoading
-              ? <p className="message loading"><samp>{LOADING_MESSAGE}</samp></p>
-              : busData.length === 0
+        {(fetchState) && (
+          fetchState.id === 'loading'
+            ? <p className="message loading"><samp>{LOADING_MESSAGE}</samp></p>
+            : fetchState.id === 'error'
+              ? <p className="message error"><samp>{ERROR_MESSAGE}</samp></p>
+              : fetchState.data.length === 0
                 ? <p className="message no-services"><samp>{NO_SERVICES_MESSAGE}</samp></p>
                 :
                   <MapContainer
                     center={[-34.61315, -58.37723]}
-                    zoom={10}
+                    zoom={13}
                   >
 
                     <TileLayer
@@ -110,7 +101,7 @@ export default function BusPosition({ title }) {
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
 
-                    {busData.map((bus, index) =>
+                    {fetchState.data.map((bus, index) =>
                       <Marker
                         position={[bus.latitude, bus.longitude]}
                         key={index}
