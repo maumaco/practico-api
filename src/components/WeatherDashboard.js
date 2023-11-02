@@ -3,6 +3,11 @@
 import { useState, useEffect } from 'react';
 
 
+// Custom hooks
+
+import useFetch from '../hooks/useFetch.js';
+
+
 // Components
 
 import Dial from './Dial.js';
@@ -58,7 +63,7 @@ export default function WeatherDashboard({ title }) {
   useEffect(() => {
     setIsLoading(true);
     setError(null);
-    fetch('https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,relativehumidity_2m,is_day,weathercode,windspeed_10m,winddirection_10m&hourly=temperature_2m,relativehumidity_2m,visibility&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,windspeed_10m_max&timezone=America%2FSao_Paulo&forecast_days=1')
+    fetch('https://api.open-meteo.com/v1/forecast?latitude=-34.61315&longitude=-58.37723&current=temperature_2m,relativehumidity_2m,is_day,weathercode,windspeed_10m,winddirection_10m&hourly=temperature_2m,relativehumidity_2m,visibility&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,windspeed_10m_max&timezone=America%2FSao_Paulo&forecast_days=1')
       .then(response =>
         response.json()
       )
