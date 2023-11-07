@@ -10,17 +10,8 @@ import { useFetchState } from '../hooks/useFetchState.js';
 
 // Components
 
+import BusLines from './BusLines.js';
 import BusMap from './BusMap.js';
-
-
-// Constants
-
-import { SELECT_BUS_LINE_OPTION } from '../constants/textNodes.js';
-
-
-// Data
-
-import { busLines } from '../data/busLines.js';
 
 
 export default function BusLocation({ title }) {
@@ -36,7 +27,6 @@ export default function BusLocation({ title }) {
 
   // Redo the same fetch every 31 seconds
   useEffect(() => {
-    console.log(counter)
     if (counter) {
       const fetchInterval = setInterval(() => {
         setCounter(counter + 1);
@@ -49,44 +39,16 @@ export default function BusLocation({ title }) {
     }
   }, [counter]);
 
-  // Update the value of <select> and increment the fetch counter
-  function handleChange(e) {
-    setRouteId(e.target.value);
-    setCounter(counter + 1);
-  }
-
   return (
     <article id="bus-location">
       <h3>{title}</h3>
       <p className="notice"><em>Se actualiza cada 31 segundos</em></p>
 
-      <p id="bus-lines">
-        <label htmlFor="bus-line">Línea</label>
-
-        {': '}
-
-        <select
-          id="bus-line"
-          value={routeId}
-          onChange={handleChange}
-        >
-          <option
-            value=""
-            disabled
-          >
-            {SELECT_BUS_LINE_OPTION}
-          </option>
-
-          {busLines.map(bus =>
-            <option
-              value={bus.route_id}
-              key={bus.route_id}
-            >
-              {bus.route_short_name + ' ' + bus.trip_headsign}
-            </option>
-          )}
-        </select>
-      </p>
+      <BusLines
+        routeId={routeId}
+        setRouteId={setRouteId}
+        setCounter={setCounter}
+      />
 
       <BusMap
         fetchState={fetchState}
