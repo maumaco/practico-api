@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 
-export default function useFetch(url, counter) {
+export function useFetchState(url, counter) {
   const [fetchState, setFetchState] = useState(null);
 
   useEffect(() => {
@@ -24,8 +24,8 @@ export default function useFetch(url, counter) {
           return response.json();
         })
 
-        // Valid JSON
         .then(json => {
+          // Valid JSON
           if (!ignore) {
             setFetchState({
               data: json,

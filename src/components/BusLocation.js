@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 // Custom hooks
 
-import useFetch from '../hooks/useFetch.js';
+import { useFetchState } from '../hooks/useFetchState.js';
 
 
 // Components
@@ -27,7 +27,7 @@ export default function BusLocation({ title }) {
   const [routeId, setRouteId] = useState('');
   const [counter, setCounter] = useState(0);
 
-  const fetchState = useFetch(
+  const fetchState = useFetchState(
     routeId
       ? `https://apitransporte.buenosaires.gob.ar/colectivos/vehiclePositionsSimple?route_id=${routeId}&client_id=cb6b18c84b3b484d98018a791577af52&client_secret=3e3DB105Fbf642Bf88d5eeB8783EE1E6`
       : null,
