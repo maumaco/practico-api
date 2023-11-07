@@ -14,7 +14,7 @@ import {
 
 
 export default function BusLines({ routeId, setRouteId, setCounter }) {
-  const busLines = useFetchState(
+  const busLinesState = useFetchState(
     'https://apitransporte.buenosaires.gob.ar/colectivos/vehiclePositionsSimple?client_id=cb6b18c84b3b484d98018a791577af52&client_secret=3e3DB105Fbf642Bf88d5eeB8783EE1E6',
     0
   );
@@ -25,8 +25,8 @@ export default function BusLines({ routeId, setRouteId, setCounter }) {
     setCounter(c => c + 1);
   }
 
-  if (busLines) {
-    if (busLines.id === 'loading') {
+  if (busLinesState) {
+    if (busLinesState.id === 'loading') {
       return (
         <p id="bus-lines">
           <label htmlFor="bus-line">Línea</label>
@@ -36,7 +36,7 @@ export default function BusLines({ routeId, setRouteId, setCounter }) {
       );
     }
 
-    else if (busLines.id === 'error') {
+    else if (busLinesState.id === 'error') {
       return (
         <p id="bus-lines">
           <label htmlFor="bus-line">Línea</label>
@@ -46,7 +46,7 @@ export default function BusLines({ routeId, setRouteId, setCounter }) {
       );
     }
 
-    else if (busLines.data.length === 0) {
+    else if (busLinesState.data.length === 0) {
       return (
         <p id="bus-lines">
           <label htmlFor="bus-line">Línea</label>
@@ -54,6 +54,32 @@ export default function BusLines({ routeId, setRouteId, setCounter }) {
           <span className="message inline-message no-services-message"><samp>{NO_SERVICES_MESSAGE}</samp></span>
         </p>
       );
+    }
+
+    busLinesState.data.sort(function (a, b) {
+      if ((a.route_short_name + ' ' + a.trip_headsign) > (b.route_short_name + ' ' + b.trip_headsign)) {
+        return 1;
+      }
+      if ((a.route_short_name + ' ' + a.trip_headsign) < (b.route_short_name + ' ' + b.trip_headsign)) {
+        return -1;
+      }
+      return 0;
+    });
+
+    let busLinesData = [];
+    let previousValue = '';
+
+    for (let i = 0; i < busLinesState.data.length; i++) {
+      let currentValue = busLinesState.data[i].route_short_name + ' ' + busLinesState.data[i].trip_headsign;
+
+      if (currentValue !== previousValue) {
+        busLinesData.push({
+          route_id: busLinesState.data[i].route_id,
+          route_short_name: busLinesState.data[i].route_short_name,
+          trip_headsign: busLinesState.data[i].trip_headsign
+        });
+        previousValue = currentValue;
+      }
     }
 
     return (
@@ -74,7 +100,7 @@ export default function BusLines({ routeId, setRouteId, setCounter }) {
             {SELECT_BUS_LINE_OPTION}
           </option>
 
-          {busLines.data.map((bus, index) =>
+          {busLinesData.map((bus, index) =>
             <option
               value={bus.route_id}
               key={index}
