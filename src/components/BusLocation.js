@@ -36,6 +36,7 @@ export default function BusLocation({ title }) {
 
   // Redo the same fetch every 31 seconds
   useEffect(() => {
+    console.log(counter)
     if (counter) {
       const fetchInterval = setInterval(() => {
         setCounter(counter + 1);
@@ -87,11 +88,9 @@ export default function BusLocation({ title }) {
         </select>
       </p>
 
-      <div id="bus-map">
-        <BusMap
-          fetchState={fetchState}
-        />
-      </div>
+      <BusMap
+        fetchState={fetchState}
+      />
     </article>
   );
 }
