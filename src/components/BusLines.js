@@ -1,14 +1,23 @@
+// React
+
+import { useFetchState } from '../hooks/useFetchState.js';
+
+
 // Constants
 
-import { SELECT_BUS_LINE_OPTION } from '../constants/textNodes.js';
-
-
-// Data
-
-import { busLines } from '../data/busLines.js';
+import {
+  ERROR_MESSAGE,
+  LOADING_MESSAGE,
+  NO_SERVICES_MESSAGE,
+  SELECT_BUS_LINE_OPTION
+} from '../constants/textNodes.js';
 
 
 export default function BusLines({ routeId, setRouteId, setCounter }) {
+  const busLines = useFetchState(
+    'https://apitransporte.buenosaires.gob.ar/colectivos/vehiclePositionsSimple?client_id=cb6b18c84b3b484d98018a791577af52&client_secret=3e3DB105Fbf642Bf88d5eeB8783EE1E6',
+    0
+  );
 
   // Update the value of <select> and increment the fetch counter
   function handleChange(e) {
@@ -16,33 +25,65 @@ export default function BusLines({ routeId, setRouteId, setCounter }) {
     setCounter(c => c + 1);
   }
 
-  return (
-    <p id="bus-lines">
-      <label htmlFor="bus-line">Línea</label>
+  if (busLines) {
+    if (busLines.id === 'loading') {
+      return (
+        <p id="bus-lines">
+          <label htmlFor="bus-line">Línea</label>
+          {': '}
+          {LOADING_MESSAGE}
+        </p>
+      );
+    }
 
-      {': '}
+    else if (busLines.id === 'error') {
+      return (
+        <p id="bus-lines">
+          <label htmlFor="bus-line">Línea</label>
+          {': '}
+          {ERROR_MESSAGE}
+        </p>
+      );
+    }
 
-      <select
-        id="bus-line"
-        value={routeId}
-        onChange={handleChange}
-      >
-        <option
-          value=""
-          disabled
+    else if (busLines.data.length === 0) {
+      return (
+        <p id="bus-lines">
+          <label htmlFor="bus-line">Línea</label>
+          {': '}
+          {NO_SERVICES_MESSAGE}
+        </p>
+      );
+    }
+
+    return (
+      <p id="bus-lines">
+        <label htmlFor="bus-line">Línea</label>
+
+        {': '}
+
+        <select
+          id="bus-line"
+          value={routeId}
+          onChange={handleChange}
         >
-          {SELECT_BUS_LINE_OPTION}
-        </option>
-
-        {busLines.map(bus =>
           <option
-            value={bus.route_id}
-            key={bus.route_id}
+            value=""
+            disabled
           >
-            {bus.route_short_name + ' ' + bus.trip_headsign}
+            {SELECT_BUS_LINE_OPTION}
           </option>
-        )}
-      </select>
-    </p>
-  );
+
+          {busLines.data.map((bus, index) =>
+            <option
+              value={bus.route_id}
+              key={index}
+            >
+              {bus.route_short_name + ' ' + bus.trip_headsign}
+            </option>
+          )}
+        </select>
+      </p>
+    );
+  }
 }
