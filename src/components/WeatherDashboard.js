@@ -82,10 +82,10 @@ export default function WeatherDashboard({ title }) {
 
   // Render data only if fetch has been successful
   if (error) {
-    return (<p className="message error"><samp>{ERROR_MESSAGE}</samp></p>);
+    return (<p className="message block-message error-message"><samp>{ERROR_MESSAGE}</samp></p>);
   }
   else if (isLoading) {
-    return (<p className="message loading"><samp>{LOADING_MESSAGE}</samp></p>);
+    return (<p className="message block-message loading-message"><samp>{LOADING_MESSAGE}</samp></p>);
   }
 
 

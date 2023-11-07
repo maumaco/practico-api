@@ -22,7 +22,7 @@ export default function BusMap({ fetchState }) {
     if (fetchState.id === 'loading') {
       return (
         <div id="bus-map">
-          <p className="message loading"><samp>{LOADING_MESSAGE}</samp></p>
+          <p className="message block-message loading-message"><samp>{LOADING_MESSAGE}</samp></p>
         </div>
       );
     }
@@ -30,7 +30,7 @@ export default function BusMap({ fetchState }) {
     else if (fetchState.id === 'error') {
       return (
         <div id="bus-map">
-          <p className="message error"><samp>{ERROR_MESSAGE}</samp></p>
+          <p className="message block-message error-message"><samp>{ERROR_MESSAGE}</samp></p>
         </div>
       );
     }
@@ -38,7 +38,7 @@ export default function BusMap({ fetchState }) {
     else if (fetchState.data.length === 0) {
       return (
         <div id="bus-map">
-          <p className="message no-services"><samp>{NO_SERVICES_MESSAGE}</samp></p>
+          <p className="message block-message no-services-message"><samp>{NO_SERVICES_MESSAGE}</samp></p>
         </div>
       );
     }

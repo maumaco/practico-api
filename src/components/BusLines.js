@@ -31,7 +31,7 @@ export default function BusLines({ routeId, setRouteId, setCounter }) {
         <p id="bus-lines">
           <label htmlFor="bus-line">Línea</label>
           {': '}
-          {LOADING_MESSAGE}
+          <span className="message inline-message loading-message"><samp>{LOADING_MESSAGE}</samp></span>
         </p>
       );
     }
@@ -41,7 +41,7 @@ export default function BusLines({ routeId, setRouteId, setCounter }) {
         <p id="bus-lines">
           <label htmlFor="bus-line">Línea</label>
           {': '}
-          {ERROR_MESSAGE}
+          <span className="message inline-message error-message"><samp>{ERROR_MESSAGE}</samp></span>
         </p>
       );
     }
@@ -51,7 +51,7 @@ export default function BusLines({ routeId, setRouteId, setCounter }) {
         <p id="bus-lines">
           <label htmlFor="bus-line">Línea</label>
           {': '}
-          {NO_SERVICES_MESSAGE}
+          <span className="message inline-message no-services-message"><samp>{NO_SERVICES_MESSAGE}</samp></span>
         </p>
       );
     }

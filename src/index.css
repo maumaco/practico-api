@@ -49,7 +49,7 @@ section {
 
 /* Messages */
 
-.message {
+.block-message {
   align-items: center;
   box-sizing: border-box;
   display: flex;
@@ -65,23 +65,26 @@ section {
 .message samp {
   color: #fff;
   font-family: sans-serif;
+}
+
+.block-message samp {
   padding: 0.5em 1em;
 }
 
-.error samp {
+.inline-message samp {
+  padding: 0.25em 0.5em;
+}
+
+.error-message samp {
   background-color: #c44;
 }
 
-.loading samp {
+.loading-message samp {
   background-color: #444;
 }
 
-.no-services samp {
+.no-services-message samp {
   background-color: #aa4;
-}
-
-#bus-map samp {
-  z-index: 1000;
 }
 
 
