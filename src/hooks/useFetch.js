@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 
-export default function useFetch(url, dependencies) {
+export default function useFetch(url, counter) {
   const [fetchState, setFetchState] = useState(null);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function useFetch(url, dependencies) {
         ignore = true;
       };
     }
-  }, dependencies);
+  }, [url, counter]);
 
   return fetchState;
 }

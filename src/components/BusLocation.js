@@ -31,7 +31,7 @@ export default function BusLocation({ title }) {
     routeId
       ? `https://apitransporte.buenosaires.gob.ar/colectivos/vehiclePositionsSimple?route_id=${routeId}&client_id=cb6b18c84b3b484d98018a791577af52&client_secret=3e3DB105Fbf642Bf88d5eeB8783EE1E6`
       : null,
-    [counter]
+    counter
   );
 
   // Redo the same fetch every 31 seconds
