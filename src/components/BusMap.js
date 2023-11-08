@@ -17,9 +17,9 @@ import {
 } from '../constants/textNodes.js';
 
 
-export default function BusMap({ fetchState }) {
-  if (fetchState) {
-    if (fetchState.id === 'loading') {
+export default function BusMap({ busMapData }) {
+  if (busMapData) {
+    if (busMapData.id === 'loading') {
       return (
         <div id="bus-map">
           <p className="message block-message loading-message"><samp>{LOADING_MESSAGE}</samp></p>
@@ -27,7 +27,7 @@ export default function BusMap({ fetchState }) {
       );
     }
 
-    else if (fetchState.id === 'error') {
+    else if (busMapData.id === 'error') {
       return (
         <div id="bus-map">
           <p className="message block-message error-message"><samp>{ERROR_MESSAGE}</samp></p>
@@ -35,7 +35,7 @@ export default function BusMap({ fetchState }) {
       );
     }
 
-    else if (fetchState.data.length === 0) {
+    else if (busMapData.data.length === 0) {
       return (
         <div id="bus-map">
           <p className="message block-message no-services-message"><samp>{NO_SERVICES_MESSAGE}</samp></p>
@@ -55,7 +55,7 @@ export default function BusMap({ fetchState }) {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
-          {fetchState.data.map((bus, index) =>
+          {busMapData.data.map((bus, index) =>
             <Marker
               position={[bus.latitude, bus.longitude]}
               key={index}
