@@ -58,6 +58,10 @@ export default function WeatherDashboard({ title }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const airQualityState = useFetchState(
+    'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=-34.61315&longitude=-58.37723&current=european_aqi&hourly=european_aqi&timezone=America%2FSao_Paulo&forecast_days=1',
+    0
+  );
 
   // Fetch API data
   useEffect(() => {
@@ -129,14 +133,10 @@ export default function WeatherDashboard({ title }) {
   // const visibility = weatherData.hourly.visibility[weatherData.hourly.time.indexOf(weatherData.current.time)];
   const visibility = weatherData.hourly.visibility[weatherData.hourly.time.indexOf(weatherData.current.time.slice(0, weatherData.current.time.length - 3) + ':00')];
   const visibilityUnit = weatherData.hourly_units.visibility;
-  const airQualityIndex = weatherData.current.european_aqi;
-  // TO DO:
-  // Add another fetch to the API to get the air quality index
-  // Old line:
-  // const airQualityIndexText = getEuropeanAQIPollutionLevel(airQualityIndex);
-  const airQualityIndexText = 'Bueno';
-  const airQualityIndexRange = 301;
 
+  const airQualityIndex = (airQualityState && airQualityState.id === 'success') && airQualityState.data.current.european_aqi;
+  const airQualityIndexText = airQualityIndex && getEuropeanAQIPollutionLevel(airQualityIndex);
+  const airQualityIndexRange = 301;
 
   return (
     <>
@@ -233,16 +233,25 @@ export default function WeatherDashboard({ title }) {
         <HighlightedItem
           title={AIR_QUALITY_INDEX_HEADING}
         >
-          <HighlightedValue
-            value={airQualityIndex}
-          />
-          <HighlightedText
-            text={airQualityIndexText}
-          />
-          <Dial
-            range={airQualityIndexRange}
-            value={airQualityIndex}
-          />
+          {airQualityState && (
+            airQualityState.id === 'loading'
+              ? <span className="message inline-message loading-message"><samp>{LOADING_MESSAGE}</samp></span>
+              : airQualityState.id === 'error'
+                ? <span className="message inline-message error-message"><samp>{ERROR_MESSAGE}</samp></span>
+                :
+                  <>
+                    <HighlightedValue
+                      value={airQualityIndex}
+                    />
+                    <HighlightedText
+                      text={airQualityIndexText}
+                    />
+                    <Dial
+                      range={airQualityIndexRange}
+                      value={airQualityIndex}
+                    />
+                  </>
+          )}
         </HighlightedItem>
       </Highlights>
     </>
