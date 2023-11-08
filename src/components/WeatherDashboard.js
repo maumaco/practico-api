@@ -1,8 +1,3 @@
-// React
-
-import { useState, useEffect } from 'react';
-
-
 // Custom hooks
 
 import { useFetchState } from '../hooks/useFetchState.js';
@@ -54,86 +49,73 @@ import {
 
 
 export default function WeatherDashboard({ title }) {
-  const [weatherData, setWeatherData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const weatherState = useFetchState(
+    'https://api.open-meteo.com/v1/forecast?latitude=-34.61315&longitude=-58.37723&current=temperature_2m,relativehumidity_2m,is_day,weathercode,windspeed_10m,winddirection_10m&hourly=temperature_2m,relativehumidity_2m,visibility&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,windspeed_10m_max&timezone=America%2FSao_Paulo&forecast_days=1',
+    0
+  );
 
   const airQualityState = useFetchState(
     'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=-34.61315&longitude=-58.37723&current=european_aqi&hourly=european_aqi&timezone=America%2FSao_Paulo&forecast_days=1',
     0
   );
 
-  // Fetch API data
-  useEffect(() => {
-    setIsLoading(true);
-    setError(null);
-    fetch('https://api.open-meteo.com/v1/forecast?latitude=-34.61315&longitude=-58.37723&current=temperature_2m,relativehumidity_2m,is_day,weathercode,windspeed_10m,winddirection_10m&hourly=temperature_2m,relativehumidity_2m,visibility&daily=weathercode,temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max,windspeed_10m_max&timezone=America%2FSao_Paulo&forecast_days=1')
-      .then(response =>
-        response.json()
-      )
-      .catch(error =>
-        setError(error)
-      )
-      .then(data => {
-        setWeatherData(data);
-        setIsLoading(false);
-      })
-      .catch(error => {
-        setError(error);
-      })
-  }, []);
-
-
-  // Render data only if fetch has been successful
-  if (error) {
-    return (<p className="message block-message error-message"><samp>{ERROR_MESSAGE}</samp></p>);
+  // Render weather data only if fetch has been successful
+  if (!weatherState) {
+    return;
   }
-  else if (isLoading) {
-    return (<p className="message block-message loading-message"><samp>{LOADING_MESSAGE}</samp></p>);
+  else if (weatherState.id === 'loading') {
+    return (
+      <p className="message block-message loading-message"><samp>{LOADING_MESSAGE}</samp></p>
+    );
   }
-
+  else if (weatherState.id === 'error') {
+    return (
+      <p className="message block-message error-message"><samp>{ERROR_MESSAGE}</samp></p>
+    );
+  }
 
   // <Temperature />
-  const currentTemperature = weatherData.current.temperature_2m;
-  const currentTemperatureUnit = weatherData.current_units.temperature_2m;
+  const currentTemperature = weatherState.data.current.temperature_2m;
+  const currentTemperatureUnit = weatherState.data.current_units.temperature_2m;
 
   // <Time />
-  const currentFullTime = new Date(weatherData.current.time);
+  const currentFullTime = new Date(weatherState.data.current.time);
   const currentDate = capitalizeFirstLetter(
     getDayName(currentFullTime.getDay())
   );
   const currentTime = formatTime(currentFullTime.getHours(), currentFullTime.getMinutes());
 
   // <TemperatureRange />
-  const maxTemperature = weatherData.daily.temperature_2m_max;
-  const maxTemperatureUnit = weatherData.daily_units.temperature_2m_max;
-  const minTemperature = weatherData.daily.temperature_2m_min;
-  const minTemperatureUnit = weatherData.daily_units.temperature_2m_min;
+  const maxTemperature = weatherState.data.daily.temperature_2m_max;
+  const maxTemperatureUnit = weatherState.data.daily_units.temperature_2m_max;
+  const minTemperature = weatherState.data.daily.temperature_2m_min;
+  const minTemperatureUnit = weatherState.data.daily_units.temperature_2m_min;
 
   // <Today />
   const divider = 3;
-  const crossAxisValues = reduceArrayByDivider(weatherData.hourly.temperature_2m, divider);
-  const mainAxisValues = reduceArrayByDivider(weatherData.hourly.time, divider).map(e =>
+  const crossAxisValues = reduceArrayByDivider(weatherState.data.hourly.temperature_2m, divider);
+  const mainAxisValues = reduceArrayByDivider(weatherState.data.hourly.time, divider).map(e =>
     getHourAndMinutes(new Date(e))
   );
 
   // <Highlights />
-  const UVIndex = weatherData.daily.uv_index_max;
+  const UVIndex = weatherState.data.daily.uv_index_max;
   const UVIndexText = getUVIndexRisk(UVIndex);
   const UVIndexRange = 11;
-  const windSpeed = weatherData.current.windspeed_10m;
-  const windSpeedUnit = weatherData.current_units.windspeed_10m;
-  const sunrise = getHourAndMinutes(new Date(weatherData.daily.sunrise));
-  const sunset = getHourAndMinutes(new Date(weatherData.daily.sunset));
-  const relativeHumidity = weatherData.current.relativehumidity_2m;
-  const relativeHumidityUnit = weatherData.current_units.relativehumidity_2m;
+  const windSpeed = weatherState.data.current.windspeed_10m;
+  const windSpeedUnit = weatherState.data.current_units.windspeed_10m;
+  const sunrise = getHourAndMinutes(new Date(weatherState.data.daily.sunrise));
+  const sunset = getHourAndMinutes(new Date(weatherState.data.daily.sunset));
+  const relativeHumidity = weatherState.data.current.relativehumidity_2m;
+  const relativeHumidityUnit = weatherState.data.current_units.relativehumidity_2m;
   // TO DO:
   // Create a function to get an element array value from a current time value
   // Old line:
   // const visibility = weatherData.hourly.visibility[weatherData.hourly.time.indexOf(weatherData.current.time)];
-  const visibility = weatherData.hourly.visibility[weatherData.hourly.time.indexOf(weatherData.current.time.slice(0, weatherData.current.time.length - 3) + ':00')];
-  const visibilityUnit = weatherData.hourly_units.visibility;
+  const visibility = weatherState.data.hourly.visibility[weatherState.data.hourly.time.indexOf(weatherState.data.current.time.slice(0, weatherState.data.current.time.length - 3) + ':00')];
+  const visibilityUnit = weatherState.data.hourly_units.visibility;
 
+  // <Highlights />
   const airQualityIndex = (airQualityState && airQualityState.id === 'success') && airQualityState.data.current.european_aqi;
   const airQualityIndexText = airQualityIndex && getEuropeanAQIPollutionLevel(airQualityIndex);
   const airQualityIndexRange = 301;
