@@ -108,10 +108,6 @@ export default function WeatherDashboard({ title }) {
   const sunset = getHourAndMinutes(new Date(weatherState.data.daily.sunset));
   const relativeHumidity = weatherState.data.current.relativehumidity_2m;
   const relativeHumidityUnit = weatherState.data.current_units.relativehumidity_2m;
-  // TO DO:
-  // Create a function to get an element array value from a current time value
-  // Old line:
-  // const visibility = weatherData.hourly.visibility[weatherData.hourly.time.indexOf(weatherData.current.time)];
   const visibility = weatherState.data.hourly.visibility[weatherState.data.hourly.time.indexOf(weatherState.data.current.time.slice(0, weatherState.data.current.time.length - 3) + ':00')];
   const visibilityUnit = weatherState.data.hourly_units.visibility;
 
